@@ -6,7 +6,7 @@ import {confirmAlert} from 'react-confirm-alert';
 //list and edits courses
 function CoursesView(props) {
     const [courses, setCourses] = useState(
-        [{courseId: 'cst363;', title: 'Intro to Databases', credits: 4},
+        [{courseId: 'cst363', title: 'Intro to Databases', credits: 4},
         {courseId: 'cst438', title: 'Software Engineering',credits: 4},
         {courseId: 'cst499', title: 'Captstone', credits: 4}]);
 
@@ -15,7 +15,7 @@ function CoursesView(props) {
 
 const deleteAlert = (event) => {
     confirmAlert({
-        title: "confirm to dleete",
+        title: "confirm to delete",
         message: "Do you really want to delete?",
         buttons: [
             {
