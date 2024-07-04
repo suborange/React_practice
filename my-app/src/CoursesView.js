@@ -1,20 +1,47 @@
 import React, {useState} from 'react'; 
+import Button from '@mui/material/Button';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import {confirmAlert} from 'react-confirm-alert';
 
 //list and edits courses
 function CoursesView(props) {
-    const [courses, setCourse] = useState(
+    const [courses, setCourses] = useState(
         [{courseId: 'cst363;', title: 'Intro to Databases', credits: 4},
         {courseId: 'cst438', title: 'Software Engineering',credits: 4},
         {courseId: 'cst499', title: 'Captstone', credits: 4}]);
 
-        const [message, setMessage] = usestate('');
+        const [message, setMessage] = useState('');
         const headers = ['Course ID', 'Title', 'Credits', '',''];
+
+const deleteAlert = (event) => {
+    confirmAlert({
+        title: "confirm to dleete",
+        message: "Do you really want to delete?",
+        buttons: [
+            {
+                label: 'Yes',
+                onClick: ()=> doDelete(event)
+            },
+            {
+                label: 'No'
+            }
+        ]
+    });
+}
+
+        const doDelete = (event) => {
+            const row_index = event.target.parentNode.parentNode.rowIndex -1;
+            const courses_copy = courses.filter((c,idx) => idx !== row_index);
+            setCourses(courses_copy);
+            setMessage('Course deleted');
+
+        }
 
         return (
             <>
                 <h3> Course Catalog</h3>
                 <h4> {message}</h4>
-                <table clasName = "Center">
+                <table className = "Center">
                     <thead>
                         <tr>
                             {headers.map( (h,idx) => <th key={idx}>{h}</th> )}
@@ -27,7 +54,7 @@ function CoursesView(props) {
                             <td>{course.title}</td>
                             <td>{course.credits}</td>
                             <td>edit</td>
-                            <td>delete</td>
+                            <td><Button onClick={deleteAlert}>Delete</Button></td>
                         </tr> )}
                     </tbody>
                 </table>
